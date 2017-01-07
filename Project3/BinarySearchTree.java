@@ -7,7 +7,6 @@ import java.util.Queue;
  * Implements an unbalanced binary search tree. Note that all "matching" is
  * based on the compareTo method.
  * 
- * @author Mark Allen Weiss
  */
 public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 	/**
@@ -452,6 +451,7 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 		t2.insert(9);
 		System.out.print("Tree1:-> ");
 		t.printTree();
+		
 		System.out.println();
 		System.out.print("Tree2:-> ");
 		t2.printTree();

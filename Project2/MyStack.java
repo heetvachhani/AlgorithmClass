@@ -20,38 +20,52 @@ public class MyStack<T> {
 		return mylist.get(mylist.size() - 1);
 	}
 
+	public boolean isEmpty() {
+		return mylist.isEmpty();
+	}
+
 	public static void main(String[] args) {
 		MyStack<Character> stack = new MyStack<>();
-		String expression = "[{({})}]";
-		System.out.println("Is expression: [{({})}] nasted correctly? => " + checkExpression(stack, expression));
+		String expression = "{{{}}}";
+		System.out.println("Is expression: {{{}}} nasted correctly? => " + checkExpression(stack, expression));
 		expression = "{[(])}";
 		System.out.println("Is expression: {[(])} nasted correctly? => " + checkExpression(stack, expression));
 
 	}
 
 	public static boolean checkExpression(MyStack<Character> stack, String exp) {
-		for (int i = 0; i < exp.length(); i++) {
-			if (exp.charAt(i) == '[' || exp.charAt(i) == '(' || exp.charAt(i) == '{') {
-				stack.push(exp.charAt(i));
+		if (exp.length() == 0 || exp.length() % 2 != 0) {
+			return false;
+		}
+		for (char c : exp.toCharArray()) {
+			if (c == '{' || c == '[' || c == '(') {
+				stack.push(c);
 			} else {
+				if (stack.isEmpty())
+					return false;
 				char current = stack.pop();
+
 				switch (current) {
 				case '{':
-					if (exp.charAt(i) != '}')
-						return false;
-					break;
-				case '(':
-					if (exp.charAt(i) != ')')
+					if (c != '}')
 						return false;
 					break;
 				case '[':
-					if (exp.charAt(i) != ']')
+					if (c != ']')
 						return false;
 					break;
+				case '(':
+					if (c != ')')
+						return false;
+					break;
+				default:
+					return false;
 				}
 			}
 		}
-		return true;
+		if (stack.isEmpty())
+			return true;
+		return false;
 	}
 
 }
